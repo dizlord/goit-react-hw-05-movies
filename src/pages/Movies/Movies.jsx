@@ -2,8 +2,9 @@ import { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import { getMovieByQuery } from "services/api";
 import { MoviesList } from "components/MoviesList/MoviesList";
+import Box from "services/Box";
 
-export const Movies = () => {
+const Movies = () => {
   const [query, setQuery] = useState('');
   const [movies, setMovies] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
@@ -26,12 +27,16 @@ export const Movies = () => {
   }, [searchParams]);
 
   return (
-    <div>
+    <Box padding={4}>
       <form onSubmit={handleSubmit}>
-        <input type='text' name='movie' onChange={handleChange} value={query} />
+        <Box marginRight='10px' display='inline'>
+          <input type='text' name='movie' onChange={handleChange} value={searchParams.get('query') ? searchParams.get('query') : query} />
+        </Box>
         <button type='submit'>Search</button>
       </form>
       <MoviesList movies={movies}/>
-    </div>
+    </Box>
   )
 };
+
+export default Movies;

@@ -1,28 +1,21 @@
-import { useState } from 'react';
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
-import Box from '@mui/material/Box';
-import { NavLink } from 'react-router-dom';
+import Box from 'services/Box';
+import { NavItem } from './Navigation.styled';
+
+const navItems = [
+  { href: '/', text: 'Home' },
+  { href: 'movies', text: 'Movies' }
+];
 
 export const Navigation = () => {
-  const [value, setValue] = useState('one');
-
-  const handleChange = (event: React.SyntheticEvent, newValue: string) => {
-    setValue(newValue);
-  };
-
   return (
-    <Box sx={{ width: '100%' }}>
-      <Tabs
-        value={value}
-        onChange={handleChange}
-        textColor="secondary"
-        indicatorColor="secondary"
-        aria-label="secondary tabs example"
-      >
-        <Tab value="one" label="Home" component={NavLink} to='/' />
-        <Tab value="two" label="Movies" component={NavLink} to='/movies'/>
-      </Tabs>
+    <Box as='header' p={4} borderBottom='1px solid green'>
+      <Box as='nav' display='flex'>
+        {navItems.map(({ href, text }) => (
+          <NavItem to={href} key={href}>
+            {text}
+          </NavItem>
+        ))}
+      </Box>
     </Box>
   );
 }
